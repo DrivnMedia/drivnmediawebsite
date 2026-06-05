@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Drivn Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#0B0C10;
+  --navy:#0F1118;
+  --surface:#14161E;
+  --offwhite:#ECEAE3;
+  --muted:#6B7180;
+  --blue:#18A8EE;
+  --blue-dim:rgba(24,168,238,0.08);
+  --blue-line:rgba(24,168,238,0.18);
+  --border-dim:rgba(255,255,255,0.05);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--offwhite);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;}
+
+nav{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:60px;background:var(--black);border-bottom:1px solid var(--border-dim);}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.16em;color:var(--offwhite);text-decoration:none;display:flex;align-items:baseline;gap:5px;white-space:nowrap;}
+.logo-sub{font-family:'DM Sans',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;font-weight:400;}
+.nav-links{display:flex;align-items:center;gap:2.2rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--offwhite);}
+.nav-cta{color:var(--black)!important;background:var(--blue);padding:0.45rem 1.2rem;border-radius:1px;font-weight:500!important;}
+.nav-cta:hover{opacity:0.85!important;}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;cursor:pointer;background:none;border:none;padding:0;}
+.nav-toggle span{display:block;height:1px;background:var(--offwhite);transition:transform 0.3s,opacity 0.3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+.page-header{padding:4rem 4rem 3rem;border-bottom:1px solid var(--border-dim);}
+.label{font-size:0.68rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--blue);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;}
+.label::before{content:'';flex:0 0 28px;height:1px;background:var(--blue);}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);letter-spacing:0.02em;line-height:0.95;color:var(--offwhite);}
+.page-meta{font-size:0.75rem;color:var(--muted);margin-top:1rem;letter-spacing:0.06em;}
+
+.content{max-width:760px;margin:0 auto;padding:4rem 4rem 6rem;}
+.content h2{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--offwhite);margin:2.5rem 0 0.8rem;padding-top:2rem;border-top:1px solid var(--border-dim);}
+.content h2:first-child{border-top:none;margin-top:0;padding-top:0;}
+.content p{font-size:0.88rem;color:var(--muted);line-height:1.85;margin-bottom:1rem;}
+.content p strong{color:var(--offwhite);font-weight:400;}
+.content ul{margin:0.6rem 0 1rem 1.2rem;}
+.content ul li{font-size:0.88rem;color:var(--muted);line-height:1.75;margin-bottom:0.3rem;}
+.contact-block{background:var(--blue-dim);border:1px solid var(--blue-line);border-radius:2px;padding:1.5rem 2rem;margin-top:2rem;}
+.contact-block p{margin:0;color:var(--offwhite);}
+.contact-block a{color:var(--blue);text-decoration:none;}
+
+footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.16em;color:var(--offwhite);display:flex;align-items:baseline;gap:5px;text-decoration:none;}
+.foot-logo span{font-family:'DM Sans',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;font-weight:400;}
+.foot-links{display:flex;gap:2rem;flex-wrap:wrap;}
+.foot-links a{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--offwhite);}
+.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;}
+.foot-phone{font-size:0.75rem;color:var(--muted);letter-spacing:0.06em;}
+footer p{font-size:0.68rem;color:rgba(107,113,128,0.35);}
+
+@media(max-width:768px){
+  nav{padding:0 1.4rem;position:relative;z-index:100;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;flex-direction:column;gap:0;position:absolute;top:60px;left:0;right:0;background:var(--navy);border-bottom:1px solid var(--border-dim);padding:0.5rem 0;}
+  .nav-links.open{display:flex;}
+  .nav-links li{width:100%;}
+  .nav-links a{display:block;padding:0.9rem 1.4rem;font-size:0.8rem;border-bottom:1px solid var(--border-dim);}
+  .nav-links li:last-child a{border-bottom:none;}
+  .nav-cta{margin:0.8rem 1.4rem;border-radius:1px;text-align:center;padding:0.7rem 1.4rem!important;}
+  .page-header{padding:3rem 1.4rem 2rem;}
+  .content{padding:3rem 1.4rem 5rem;}
+  footer{flex-direction:column;align-items:flex-start;gap:1.4rem;padding:2rem 1.4rem;}
+  .foot-right{align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">DRIVN <span class="logo-sub">MEDIA</span></a>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="this.classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open');">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html#what">What We Do</a></li>
+    <li><a href="index.html#who">Who We Help</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="https://calendar.app.google/C46PLm4n47xZcLcDA" target="_blank" class="nav-cta">Get In Touch</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="label">Legal</div>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="page-meta">Effective Date: June 4, 2026 &nbsp;·&nbsp; Drivn Media</p>
+</div>
+
+<div class="content">
+
+  <h2>Agreement to Terms</h2>
+  <p>By accessing our website at <strong>www.drivnmedia.info</strong> or engaging Drivn Media for any services, you agree to be bound by these Terms of Service. If you do not agree, please do not use our website or services.</p>
+
+  <h2>Services</h2>
+  <p>Drivn Media provides digital advertising and marketing services, including but not limited to:</p>
+  <ul>
+    <li>Meta (Facebook & Instagram) ad campaign management</li>
+    <li>Ad creative and copywriting</li>
+    <li>Landing page and website design</li>
+    <li>Organic social media management</li>
+    <li>Email marketing and Google Ads</li>
+  </ul>
+  <p>Specific deliverables, timelines, and pricing are outlined in individual service agreements or proposals provided to each client.</p>
+
+  <h2>Client Responsibilities</h2>
+  <p>To enable us to perform our services, clients agree to:</p>
+  <ul>
+    <li>Provide accurate and complete business information</li>
+    <li>Grant necessary access to ad accounts, pages, and platforms in a timely manner</li>
+    <li>Review and approve creative assets within agreed-upon timelines</li>
+    <li>Ensure all products, services, and claims in ads comply with applicable laws and Meta's advertising policies</li>
+    <li>Make payments on time as outlined in the service agreement</li>
+  </ul>
+
+  <h2>Payment Terms</h2>
+  <p>Payment terms, rates, and billing schedules are specified in the individual client agreement. Drivn Media reserves the right to pause or terminate services for accounts with outstanding balances. All fees paid are non-refundable unless otherwise stated in writing.</p>
+
+  <h2>Ad Spend</h2>
+  <p>Advertising spend (budget paid directly to Meta or other platforms) is separate from and in addition to Drivn Media's management fees. Clients are solely responsible for funding their ad accounts. Drivn Media does not hold, transfer, or guarantee returns on ad spend.</p>
+
+  <h2>Results Disclaimer</h2>
+  <p>Drivn Media makes no guarantee of specific results, including revenue, leads, or return on ad spend. Digital advertising outcomes depend on many factors outside our control, including market conditions, platform algorithm changes, and the nature of the client's business and offer. We commit to applying our best expertise and effort on your behalf.</p>
+
+  <h2>Intellectual Property</h2>
+  <p>Ad creative, copy, and other materials produced by Drivn Media for a client are intended for that client's use upon full payment of services. Drivn Media retains the right to display work in our portfolio unless the client requests otherwise in writing.</p>
+  <p>You may not reproduce, distribute, or use Drivn Media's website content, branding, or materials without our express written permission.</p>
+
+  <h2>Confidentiality</h2>
+  <p>Both parties agree to keep confidential any proprietary business information shared during the course of the engagement. This includes client business data, ad account performance, and strategic information.</p>
+
+  <h2>Termination</h2>
+  <p>Either party may terminate a service agreement with written notice as specified in the individual client contract. Upon termination, Drivn Media will provide reasonable transition assistance and return access credentials. Fees owed for services rendered remain due.</p>
+
+  <h2>Limitation of Liability</h2>
+  <p>To the fullest extent permitted by law, Drivn Media shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services or website, including loss of revenue or business opportunities. Our total liability shall not exceed the fees paid to us in the three months preceding the claim.</p>
+
+  <h2>Governing Law</h2>
+  <p>These Terms are governed by the laws of the State of Illinois. Any disputes arising from these Terms or our services shall be resolved in the courts of Illinois.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated effective date. Continued use of our website or services after changes constitutes acceptance.</p>
+
+  <h2>Contact Us</h2>
+  <p>If you have any questions about these Terms of Service, please contact us:</p>
+  <div class="contact-block">
+    <p><strong>Drivn Media</strong><br>
+    Phone: <a href="tel:6184149392">(618) 414-9392</a><br>
+    Email: <a href="mailto:dominic@drivnmedia.info">dominic@drivnmedia.info</a><br>
+    Website: <a href="https://www.drivnmedia.info">www.drivnmedia.info</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html" class="foot-logo">DRIVN <span>MEDIA</span></a>
+  <div class="foot-links">
+    <a href="index.html#what">What We Do</a>
+    <a href="index.html#who">Who We Help</a>
+    <a href="index.html#process">Process</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms of Service</a>
+  </div>
+  <div class="foot-right">
+    <span class="foot-phone">(618) 414-9392</span>
+    <p>© 2026 Drivn Media</p>
+  </div>
+</footer>
+
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a221b618cf84918be101ce8" data-source="WEB_USER"></script>
+
+</body>
+</html>

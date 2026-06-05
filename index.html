@@ -100,12 +100,14 @@ nav{width:100%;display:flex;align-items:center;justify-content:space-between;pad
 .btn-black{background:var(--black);color:var(--blue);padding:1rem 2.5rem;font-size:0.82rem;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;border:none;border-radius:1px;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.2s,transform 0.15s;}
 .btn-black:hover{opacity:0.88;transform:translateY(-2px);}
 
-footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;}
+footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .foot-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.16em;color:var(--offwhite);display:flex;align-items:baseline;gap:5px;text-decoration:none;}
 .foot-logo span{font-family:'DM Sans',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;font-weight:400;}
-.foot-links{display:flex;gap:2rem;}
+.foot-links{display:flex;gap:2rem;flex-wrap:wrap;}
 .foot-links a{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;cursor:pointer;}
 .foot-links a:hover{color:var(--offwhite);}
+.foot-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;}
+.foot-phone{font-size:0.75rem;color:var(--muted);letter-spacing:0.06em;}
 footer p{font-size:0.68rem;color:rgba(107,113,128,0.35);}
 
 /* ── MOBILE NAV ── */
@@ -157,6 +159,7 @@ footer p{font-size:0.68rem;color:rgba(107,113,128,0.35);}
 
   footer{flex-direction:column;align-items:flex-start;gap:1.4rem;padding:2rem 1.4rem;}
   .foot-links{flex-wrap:wrap;gap:1.2rem;}
+  .foot-right{align-items:flex-start;}
 }
 
 @media(max-width:400px){
@@ -314,8 +317,13 @@ footer p{font-size:0.68rem;color:rgba(107,113,128,0.35);}
     <a href="#who">Who We Help</a>
     <a href="#process">Process</a>
     <a href="#contact">Book a Call</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms of Service</a>
   </div>
-  <p>© 2026 Drivn Media</p>
+  <div class="foot-right">
+    <span class="foot-phone">(618) 414-9392</span>
+    <p>© 2026 Drivn Media</p>
+  </div>
 </footer>
 
 <!-- LeadConnector Chat Widget -->
