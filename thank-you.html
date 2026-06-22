@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Booked - Drivn Media</title>
+  <meta name="description" content="Your strategy call with Drivn Media is confirmed. Here's what happens next." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#08080a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- Minimal header -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Drivn Media home">
+        <img src="assets/img/drivn-logo.png" alt="Drivn Media" class="brand-logo" width="1122" height="335" />
+      </a>
+      <a href="index.html" class="btn btn-ghost header-cta" style="padding:12px 22px;font-size:14.5px">← Back to site</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="ty">
+      <!-- hero ambience -->
+      <div class="hero-bg" aria-hidden="true">
+        <div class="mesh"></div>
+        <div class="grid"></div>
+      </div>
+
+      <div class="container narrow">
+        <div data-reveal class="in">
+          <div class="ty-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </div>
+
+          <span class="eyebrow" style="justify-content:center">You're on the calendar</span>
+          <h1>Your strategy call is <span class="text-accent">confirmed.</span></h1>
+          <p class="lead">
+            Nice, the hard part's done. We're already looking at how to fill your calendar with
+            higher-ticket jobs. Here's exactly what happens next so you get the most out of our call.
+          </p>
+        </div>
+
+        <div class="ty-steps">
+          <article class="ty-step" data-reveal style="--reveal-delay:0ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+            <h3>1. Check your email &amp; texts</h3>
+            <p>Your confirmation and calendar invite are on the way. Add it to your calendar so the time stays blocked.</p>
+          </article>
+          <article class="ty-step" data-reveal style="--reveal-delay:100ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h3>2. Block 30 minutes</h3>
+            <p>Take the call somewhere quiet where you can talk numbers. Have a rough idea of your busy season and average ticket handy.</p>
+          </article>
+          <article class="ty-step" data-reveal style="--reveal-delay:200ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+            <h3>3. Come ready to grow</h3>
+            <p>We'll map out a clear plan to book more high-ticket work. Bring your questions. This is your time.</p>
+          </article>
+        </div>
+
+        <div class="ty-actions" data-reveal>
+          <a href="index.html#proof" class="btn btn-ghost btn-lg">See real results</a>
+          <a href="index.html" class="btn btn-primary btn-lg">Back to home <span class="btn-arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <p class="vsl-caption" data-reveal style="margin-top:34px">
+          Didn't get a confirmation within a few minutes? Check your spam folder, or email
+          <a href="mailto:dominic@drivnmedia.info" style="color:var(--accent-soft)">dominic@drivnmedia.info</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <img src="assets/img/drivn-logo.png" alt="Drivn Media" class="brand-logo" width="1122" height="335" />
+          </a>
+          <p>The complete system that fills your calendar, built only for auto aesthetics, shop-based and mobile. Brand scaling for detailing, coating, wrap, PPF &amp; tint operators.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="index.html#why">Why auto aesthetics only</a>
+          <a href="index.html#proof">Results</a>
+          <a href="index.html#process">How it works</a>
+          <a href="index.html#faq">FAQ</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get in touch</h4>
+          <a href="mailto:dominic@drivnmedia.info">dominic@drivnmedia.info</a>
+          <a href="tel:+16184149392">(618) 414-9392</a>
+          <li>Serving auto aesthetics shops nationwide.</li>
+          <a href="index.html#book" style="color:var(--accent-soft)">Book a call →</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Drivn Media. All rights reserved.</span>
+        <span class="footer-legal-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <span class="dot" aria-hidden="true"></span>
+          <a href="terms.html">Terms of Service</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    // reveal animations for this page
+    (function () {
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var els = document.querySelectorAll("[data-reveal]:not(.in)");
+      if ("IntersectionObserver" in window && !reduced) {
+        var io = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); }
+          });
+        }, { threshold: 0.12 });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add("in"); });
+      }
+    })();
+  </script>
+</body>
+</html>
