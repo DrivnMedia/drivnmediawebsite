@@ -3,7 +3,9 @@
 #
 # Cloudflare Pages applies /* to / itself (infinite loop) and to static assets,
 # so the maintenance page and the two files it needs are served directly first.
-/                            /index.html                  200
+# (Destination must be "/" not "/index.html": Cloudflare drops rules whose
+# destination normalizes back to the source as a suspected loop.)
+/                            /                            200
 /favicon.ico                 /favicon.ico                 200
 /assets/img/drivn-logo.png   /assets/img/drivn-logo.png   200
 
