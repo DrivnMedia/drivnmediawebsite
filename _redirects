@@ -1,5 +1,12 @@
 # Maintenance mode: every path 302s to the maintenance page at /.
 # 302 (not 301) so browsers don't cache it. Catch-all MUST stay last.
+#
+# Cloudflare Pages applies /* to / itself (infinite loop) and to static assets,
+# so the maintenance page and the two files it needs are served directly first.
+/                            /index.html                  200
+/favicon.ico                 /favicon.ico                 200
+/assets/img/drivn-logo.png   /assets/img/drivn-logo.png   200
+
 /privacy         /  302
 /privacy.html    /  302
 /terms           /  302
