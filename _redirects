@@ -1,1 +1,9 @@
-https://www.drivnmedia.info/* https://drivnmedia.info/:splat 301!
+# Maintenance mode: every path 302s to the maintenance page at /.
+# 302 (not 301) so browsers don't cache it. Catch-all MUST stay last.
+/privacy         /  302
+/privacy.html    /  302
+/terms           /  302
+/terms.html      /  302
+/thank-you       /  302
+/thank-you.html  /  302
+/*               /  302
