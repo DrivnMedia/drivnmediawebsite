@@ -1,0 +1,21 @@
+---
+import Highlight from "./Highlight.astro";
+import PhotoSlot from "./PhotoSlot.astro";
+import { about } from "../data/site";
+---
+
+<section class="section on-light bg-paper text-ink">
+  <div class="wrap grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+    <div class="reveal mx-auto w-full max-w-sm md:max-w-md">
+      <PhotoSlot alt={about.photoAlt} />
+    </div>
+
+    <div class="reveal" style="--d:90ms">
+      <p class="eyebrow text-ink/60">{about.eyebrow}</p>
+      <h2 class="h2 mt-5">
+        <Highlight text={about.headline} highlight={about.highlight} />
+      </h2>
+      <p class="mt-6 max-w-lg text-lg leading-relaxed text-ink/75">{about.body}</p>
+    </div>
+  </div>
+</section>

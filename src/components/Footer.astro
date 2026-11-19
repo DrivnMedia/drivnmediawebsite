@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/drivn-logo.png";
+import { contact, footer } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10 bg-ink">
+  <div class="wrap py-14">
+    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div>
+        <Image src={logo} alt="Drivn Media" width={320} densities={[1, 2]} loading="lazy" class="h-11 w-auto" />
+        <p class="mt-5 text-sm text-white/70">{contact.location}</p>
+      </div>
+
+      <ul class="flex flex-col gap-3 text-sm md:items-end">
+        <li><a class="flink" href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li><a class="flink" href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+      </ul>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <span>&copy; {year} {footer.rights}</span>
+      <a class="flink" href="/privacy">{footer.privacyLabel}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .flink {
+    display: inline-block;
+    padding-block: 0.25rem;
+    color: rgb(255 255 255 / 0.85);
+    transition: color 0.2s ease;
+  }
+  .flink:hover {
+    color: var(--color-accent);
+  }
+</style>

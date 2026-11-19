@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { privacy } from "../data/site";
+---
+
+<Base title={privacy.metaTitle} description={privacy.metaDescription} path="/privacy">
+  <Header base="/" solid mobileCta />
+  <main id="main" class="on-light bg-paper text-ink">
+    <article class="wrap max-w-3xl pb-24 pt-36 md:pt-44">
+      <a href="/" class="text-sm font-medium text-ink/70 underline underline-offset-4 hover:text-ink">
+        {privacy.backLabel}
+      </a>
+      <h1 class="h2 mt-6">{privacy.title}</h1>
+      <p class="mt-4 text-sm text-ink/60">{privacy.updated}</p>
+      <p class="mt-8 text-lg leading-relaxed text-ink/80">{privacy.intro}</p>
+
+      {
+        privacy.sections.map((s) => (
+          <section class="mt-12">
+            <h2 class="font-display text-xl font-semibold tracking-tight">{s.heading}</h2>
+            {s.paragraphs.map((p) => (
+              <p class="mt-4 leading-relaxed text-ink/80">{p}</p>
+            ))}
+            {s.list.length > 0 && (
+              <ul class="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-ink/80 marker:text-ink/40">
+                {s.list.map((li) => (
+                  <li>{li}</li>
+                ))}
+              </ul>
+            )}
+            {s.after && <p class="mt-4 leading-relaxed text-ink/80">{s.after}</p>}
+          </section>
+        ))
+      }
+    </article>
+  </main>
+  <Footer />
+</Base>

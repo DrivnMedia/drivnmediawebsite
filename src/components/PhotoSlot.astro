@@ -1,0 +1,28 @@
+---
+/**
+ * 3:4 portrait photo for the About section.
+ *
+ * To swap the photo, put the new file in src/assets (it has to be under src/,
+ * not public/, for Astro to resize it and convert it to WebP) and change the
+ * import below.
+ */
+import { Image } from "astro:assets";
+import photo from "../assets/dominic-about-slight-zoom.jpg";
+
+interface Props {
+  alt: string;
+}
+const { alt } = Astro.props;
+---
+
+<div class="relative aspect-[3/4] w-full overflow-hidden rounded-3xl bg-ink">
+  <Image
+    src={photo}
+    alt={alt}
+    widths={[320, 448, 640, 896]}
+    sizes="(min-width: 768px) 448px, (min-width: 432px) 384px, calc(100vw - 3rem)"
+    loading="lazy"
+    decoding="async"
+    class="h-full w-full object-cover"
+  />
+</div>

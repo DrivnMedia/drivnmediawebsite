@@ -1,0 +1,216 @@
+---
+import Highlight from "./Highlight.astro";
+import { book, contact } from "../data/site";
+
+// GoHighLevel's embed script lives on the same host as the calendar link.
+const calendar = book.calendarUrl ? new URL(book.calendarUrl) : null;
+const embedScript = calendar ? `${calendar.origin}/js/form_embed.js` : "";
+// GoHighLevel's embed code gives the iframe an id of "<calendar>_<number>".
+const frameId = calendar ? `${calendar.pathname.split("/").filter(Boolean).pop()}_1795046400000` : "";
+---
+
+<section id="book" class="book relative scroll-mt-12 overflow-hidden bg-ink">
+  <div class="book-glow" aria-hidden="true"></div>
+
+  <!-- Below 1024px: one column, text above the calendar.
+       1024px and up: text on the left (about 40%), calendar on the right. -->
+  <div class="wrap relative grid gap-y-6 lg:grid-cols-[2fr_3fr] lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-8">
+    <div class="reveal">
+      <h2 class="h2">
+        <Highlight text={book.headline} highlight={book.highlight} />
+      </h2>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-white/75 lg:mt-5">{book.sub}</p>
+    </div>
+
+    <div class="reveal -mx-2 sm:mx-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+      {
+        calendar ? (
+          <>
+            <!-- GoHighLevel calendar. The iframe is cross-origin, so it is shrunk from
+                 the outside: .cal-scale is laid out larger than its box and scaled
+                 down, and the script below keeps .cal-frame as tall as the scaled
+                 result. form_embed.js still sets the iframe's real height. The iframe
+                 and script only load just before the section scrolls into view. -->
+            <div class="cal-frame" data-cal-frame>
+              <div class="cal-scale" data-cal-scale>
+                <p class="absolute inset-x-0 top-24 text-center text-sm text-ink/60" aria-hidden="true">
+                  {book.loadingLabel}
+                </p>
+                <iframe
+                  id={frameId}
+                  title={book.calendarTitle}
+                  data-calendar
+                  data-src={book.calendarUrl}
+                  data-embed-script={embedScript}
+                  scrolling="no"
+                  style="width:100%;border:none;overflow:hidden"
+                  class="relative block min-h-[600px]"></iframe>
+              </div>
+              <noscript>
+                <p class="p-8 text-center text-ink">
+                  <a href={book.calendarUrl} class="underline">{book.noScriptLabel}</a>
+                </p>
+              </noscript>
+            </div>
+            <p class="mx-2 mt-5 text-white/80 sm:mx-0" data-calendar-fallback hidden>
+              {book.calendarFailText}{" "}
+              <a href={book.calendarUrl} class="link" target="_blank" rel="noopener">
+                {book.calendarFailLink}
+              </a>
+            </p>
+          </>
+        ) : (
+          <div class="mx-2 flex min-h-[320px] flex-col items-center justify-center gap-5 rounded-2xl border border-white/10 px-6 py-14 text-center sm:mx-0">
+            <p class="max-w-sm text-white/75">{book.noCalendarText}</p>
+            <a href={contact.phoneHref} class="btn px-8 py-4 text-base">{book.noCalendarCta} {contact.phoneDisplay}</a>
+          </div>
+        )
+      }
+    </div>
+
+    <p class="reveal mt-4 text-white/70 lg:col-start-1 lg:row-start-2 lg:mt-0">
+      {book.fallbackPrefix}{" "}
+      <a href={contact.phoneHref} class="link">{contact.phoneDisplay}</a>{" "}
+      {book.fallbackJoin}{" "}
+      <a href={`mailto:${contact.email}`} class="link">{contact.email}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Less space above the headline than other sections, so the calendar's
+     first rows share a screen with it. */
+  .book {
+    padding-block: 3.5rem 5rem;
+  }
+  @media (min-width: 768px) {
+    .book {
+      padding-block: 5rem 7rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .book {
+      padding-block: 6rem 8rem;
+    }
+  }
+
+  .book-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(50% 45% at 50% 0%, rgb(28 148 252 / 0.16), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* The white widget is a card on the dark section: rounded corners that clip
+     the iframe, one subtle border and a soft shadow. On phones it sits 16px in
+     from each edge of the screen. */
+  .cal-frame {
+    --s: 0.9; /* visual scale below 1024px */
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    /* until the script measures it: the iframe's minimum height, scaled */
+    min-height: calc(600px * var(--s));
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 1rem;
+  }
+  @media (max-width: 1023px) {
+    .cal-frame {
+      box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.9);
+    }
+  }
+  @media (min-width: 1024px) {
+    .cal-frame {
+      --s: 0.85; /* visual scale on desktop */
+    }
+  }
+  .cal-scale {
+    position: relative;
+    width: calc(100% / var(--s));
+    transform: scale(var(--s));
+    transform-origin: top left;
+  }
+
+  .link {
+    color: #fff;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgb(255 255 255 / 0.3);
+    text-underline-offset: 4px;
+    white-space: nowrap;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .link:hover {
+    text-decoration-color: var(--color-accent);
+  }
+</style>
+
+<script>
+  const frame = document.querySelector<HTMLIFrameElement>("iframe[data-calendar]");
+  const fallback = document.querySelector<HTMLElement>("[data-calendar-fallback]");
+  const calFrame = document.querySelector<HTMLElement>("[data-cal-frame]");
+  const calScale = document.querySelector<HTMLElement>("[data-cal-scale]");
+  const FAIL_AFTER_MS = 12000;
+
+  // Keep the visible box exactly as tall as the scaled-down calendar, so there
+  // is no blank space under it and nothing is cut off. Runs again whenever
+  // form_embed.js changes the iframe's height or the screen width changes.
+  if (calFrame && calScale && "ResizeObserver" in window) {
+    const fit = () => {
+      const scale = parseFloat(getComputedStyle(calFrame).getPropertyValue("--s")) || 1;
+      const borders = calFrame.offsetHeight - calFrame.clientHeight;
+      calFrame.style.height = `${Math.ceil(calScale.offsetHeight * scale) + borders}px`;
+    };
+    new ResizeObserver(fit).observe(calScale);
+    window.addEventListener("resize", fit);
+    fit();
+  }
+
+  const load = () => {
+    if (!frame || frame.src) return;
+    const origin = new URL(frame.dataset.src ?? "", location.href).origin;
+
+    // A working calendar talks to the page (that is how it reports its height).
+    // If we hear nothing from it, show a plain link to the booking page instead.
+    let alive = false;
+    const showFallback = () => {
+      if (!alive && fallback) fallback.hidden = false;
+    };
+    window.addEventListener("message", (event) => {
+      if (event.origin !== origin) return;
+      alive = true;
+      if (fallback) fallback.hidden = true;
+    });
+    frame.addEventListener("error", showFallback);
+    setTimeout(showFallback, FAIL_AFTER_MS);
+
+    frame.src = frame.dataset.src ?? "";
+
+    // GoHighLevel's standard embed script: sizes the iframe to its content
+    const script = document.createElement("script");
+    script.src = frame.dataset.embedScript ?? "";
+    script.type = "text/javascript";
+    script.onerror = showFallback;
+    document.body.appendChild(script);
+  };
+
+  if (frame) {
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            load();
+            io.disconnect();
+          }
+        },
+        { rootMargin: "800px 0px" },
+      );
+      io.observe(frame);
+    } else {
+      load();
+    }
+    // Load right away if someone taps a "Book a call" button
+    document.querySelectorAll('a[href$="#book"]').forEach((a) => a.addEventListener("click", load));
+    if (location.hash === "#book") load();
+  }
+</script>

@@ -1,0 +1,106 @@
+---
+/**
+ * Sticky bar at the bottom of the screen, phones only (below 768px).
+ * Hidden while the hero's own button is on screen, and again while the
+ * booking section or the footer is on screen.
+ */
+import { mobileBar, contact } from "../data/site";
+---
+
+<div id="mobile-bar" class="mobile-bar">
+  <div class="flex items-center gap-3">
+    <a href="#book" class="btn h-12 flex-1 text-base">{mobileBar.cta}</a>
+    <a href={contact.phoneHref} class="call" aria-label={mobileBar.callLabel}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<style>
+  .mobile-bar {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .mobile-bar {
+      display: block;
+      position: fixed;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 40;
+      padding: 0.75rem 1.5rem calc(0.75rem + env(safe-area-inset-bottom));
+      background-color: rgb(11 15 20 / 0.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgb(255 255 255 / 0.08);
+      transition:
+        transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+        visibility 0s;
+    }
+    /* With JS running the bar starts off screen and the script slides it in.
+       "visibility" also takes its buttons out of the tab order while hidden. */
+    :global(html.js) .mobile-bar:not(.show) {
+      transform: translateY(100%);
+      visibility: hidden;
+      transition:
+        transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+        visibility 0s 0.3s;
+    }
+  }
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .mobile-bar,
+    :global(html.js) .mobile-bar:not(.show) {
+      transition: none;
+    }
+  }
+
+  .call {
+    display: inline-flex;
+    height: 3rem;
+    width: 3rem;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    color: #fff;
+  }
+</style>
+
+<style is:global>
+  /* Room at the very bottom of the page so the bar can never sit on content */
+  @media (max-width: 767px) {
+    body:has(#mobile-bar) {
+      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+
+<script>
+  const bar = document.getElementById("mobile-bar");
+  const heroCta = document.querySelector("[data-hero-cta]");
+  const book = document.getElementById("book");
+  const footer = document.querySelector("footer");
+
+  if (bar && "IntersectionObserver" in window) {
+    // true = on screen
+    const seen = new Map<Element, boolean>();
+    const update = () => {
+      const blocked = [...seen.values()].some(Boolean);
+      bar.classList.toggle("show", seen.size > 0 && !blocked);
+    };
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) seen.set(entry.target, entry.isIntersecting);
+      update();
+    });
+    [heroCta, book, footer].forEach((el) => el && io.observe(el));
+  } else if (bar) {
+    bar.classList.add("show");
+  }
+</script>

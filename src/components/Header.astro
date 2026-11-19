@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/drivn-logo.png";
+import { header } from "../data/site";
+
+interface Props {
+  /** Prefix for in-page links, "/" when used off the home page */
+  base?: string;
+  /** Always show the dark bar (for pages with a light top) */
+  solid?: boolean;
+  /** Keep the button on phones. Off on the home page, where the bottom bar has it. */
+  mobileCta?: boolean;
+}
+const { base = "", solid = false, mobileCta = false } = Astro.props;
+---
+
+<header
+  id="site-header"
+  data-solid={solid ? "" : undefined}
+  class:list={[
+    "fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color,backdrop-filter] duration-300",
+    solid && "scrolled",
+  ]}
+>
+  <div class="wrap flex items-center justify-between py-4 transition-[padding] duration-300" data-bar>
+    <a href={base || "#top"} class="block shrink-0" aria-label="Drivn Media home">
+      <Image
+        src={logo}
+        alt="Drivn Media"
+        width={320}
+        densities={[1, 2]}
+        loading="eager"
+        fetchpriority="high"
+        class="h-10 w-auto transition-[height] duration-300 sm:h-11"
+        data-logo
+      />
+    </a>
+    <a href={`${base}#book`} class:list={["btn px-5 py-2.5 text-sm", !mobileCta && "desktop-only"]}>{header.cta}</a>
+  </div>
+</header>
+
+<style>
+  @media (max-width: 767px) {
+    .desktop-only {
+      display: none;
+    }
+  }
+  #site-header.scrolled {
+    /* Nearly solid, and no bottom border, so nothing light shows through or
+       under the bar where a dark section starts. */
+    background-color: rgb(11 15 20 / 0.94);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  #site-header.scrolled [data-bar] {
+    padding-block: 0.6rem;
+  }
+  #site-header.scrolled [data-logo] {
+    height: 2rem;
+  }
+</style>
+
+<script>
+  const el = document.getElementById("site-header");
+  const onScroll = () => el?.classList.toggle("scrolled", el.hasAttribute("data-solid") || window.scrollY > 12);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

@@ -1,0 +1,24 @@
+---
+/**
+ * Renders a headline with one phrase picked out in the accent blue.
+ *
+ * variant="underline" (default)  marker underline along the bottom of the words.
+ * variant="sweep"                full-height blue block behind the words, dark text on top.
+ *
+ * Both show immediately, with no animation.
+ *
+ * To switch every heading at once, change the default below.
+ * Styles live in src/styles/global.css (.hl-sweep / .hl-underline).
+ */
+interface Props {
+  text: string;
+  highlight?: string;
+  variant?: "sweep" | "underline";
+}
+const { text, highlight = "", variant = "underline" } = Astro.props;
+const i = highlight ? text.indexOf(highlight) : -1;
+const before = i >= 0 ? text.slice(0, i) : text;
+const after = i >= 0 ? text.slice(i + highlight.length) : "";
+---
+
+{before}{i >= 0 && <span class:list={["hl", `hl-${variant}`]}>{highlight}</span>}{after}

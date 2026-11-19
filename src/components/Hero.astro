@@ -1,0 +1,231 @@
+---
+import { hero, contact } from "../data/site";
+---
+
+<section id="top" class="hero relative overflow-hidden bg-ink">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-inner wrap relative">
+    <p class="eyebrow max-w-xs text-accent sm:max-w-none">{hero.eyebrow}</p>
+
+    <h1 class="hero-title mt-6 font-display font-semibold leading-[1.05] tracking-[-0.04em]" aria-label={hero.accessibleHeadline}>
+      <span class="sr-only">{hero.accessibleHeadline}</span>
+      <span class="hero-line block text-accent" aria-hidden="true">{hero.headline}</span>
+      <!-- Every phrase is stacked invisibly in one grid cell, so the line keeps
+           its height and nothing below moves while it types. -->
+      <span class="rotator" aria-hidden="true" data-rotator data-phrases={JSON.stringify(hero.rotating)}>
+        {hero.rotating.map((phrase) => <span class="rotator-size">{phrase}</span>)}
+        <span class="rotator-live"
+          ><span data-rotator-text>{hero.rotating[0]}</span><span class="rotator-cursor"></span></span
+        >
+      </span>
+    </h1>
+
+    <p class="hero-sub mt-6 text-lg leading-relaxed text-white/75 md:hidden">{hero.subMobile}</p>
+    <p class="mt-7 hidden max-w-xl text-xl leading-relaxed text-white/75 md:block">{hero.sub}</p>
+
+    <div class="hero-cta mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7 md:mt-10">
+      <a href="#book" class="btn px-8 py-4 text-base" data-hero-cta>
+        {hero.primaryCta}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+      <p class="hidden text-base text-white/70 md:block">
+        {hero.secondaryPrefix}{" "}
+        <a
+          href={contact.phoneHref}
+          class="font-medium text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-accent"
+          >{contact.phoneDisplay}</a
+        >
+      </p>
+    </div>
+
+    <ul
+      class="hero-trust mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/80 sm:flex-row sm:gap-10 md:mt-24"
+    >
+      {
+        hero.trust.map((line) => (
+          <li class="flex items-center gap-3">
+            <span class="h-1.5 w-1.5 shrink-0 rotate-45 bg-accent" aria-hidden="true" />
+            {line}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Phones (below 768px). Everything is one group: eyebrow, headline, subhead,
+     button, divider, bullets. Text sizes and the gaps between pieces grow with
+     the height of the screen (svh), so a taller phone gets a fuller hero rather
+     than a stretched one. The headline is the exception: its size is set by the
+     screen width, further down, so that line 1 stays on one line. */
+  .hero-inner {
+    --gap: clamp(1.5rem, 4.6svh, 3rem);
+    /* 4.6rem clears the fixed header */
+    padding-block: calc(4.6rem + 1.5rem) 1.75rem;
+  }
+  @media (max-width: 767px) {
+    .eyebrow {
+      font-size: clamp(0.75rem, 1.65svh, 0.9rem);
+    }
+    .hero-title,
+    .hero-sub,
+    .hero-cta {
+      margin-top: var(--gap);
+    }
+    .hero-sub {
+      font-size: clamp(1.125rem, 2.55svh, 1.4rem);
+    }
+    .hero-cta .btn {
+      padding-block: clamp(1rem, 2.5svh, 1.4rem);
+      font-size: clamp(1rem, 2.1svh, 1.15rem);
+    }
+    .hero-trust {
+      margin-top: clamp(2rem, 4.6svh, 3rem);
+      padding-top: clamp(2rem, 4.6svh, 3rem);
+      gap: clamp(1.1rem, 2.6svh, 1.6rem);
+      font-size: clamp(1rem, 2.1svh, 1.15rem);
+    }
+  }
+  /* Phones with a normal-height screen: the hero fills the first screen and the
+     group is centered in the space under the header. Shorter screens keep the
+     natural height so nothing can overlap. */
+  @media (max-width: 767px) and (min-height: 640px) {
+    .hero {
+      display: flex;
+      flex-direction: column;
+      min-height: 100svh;
+    }
+    .hero-inner {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  /* Desktop: the taller, roomier layout. */
+  @media (min-width: 768px) {
+    .hero-inner {
+      padding-block: 13rem 7rem;
+    }
+  }
+
+  /* The page width divided by the widest line (in em), capped at 84px. */
+  .hero-title {
+    font-size: min(calc((100vw - 3rem) / var(--fit)), 5.25rem);
+    /* Phones: sized to line 1 (about 10.8em). The longest rotating phrase is a
+       little wider and runs a few pixels into the right-hand padding. */
+    --fit: 10.95;
+  }
+  @media (min-width: 640px) {
+    .hero-title {
+      --fit: 11.5; /* widest line is "inside your service area." at about 11.4em */
+      /* extra 1rem allows for a desktop scrollbar, which 100vw includes */
+      font-size: min(calc((100vw - 5rem) / var(--fit)), 5.25rem);
+    }
+  }
+  .hero-line,
+  .rotator > * {
+    white-space: nowrap;
+  }
+
+  .rotator {
+    display: grid;
+  }
+  .rotator > * {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+  .rotator-size {
+    visibility: hidden;
+  }
+  .rotator-cursor {
+    position: relative;
+    display: inline-block;
+    width: 0; /* takes no room, so it can never push a word to the next line */
+    height: 0.8em;
+    vertical-align: -0.06em;
+  }
+  .rotator-cursor::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0.07em;
+    width: max(2px, 0.04em);
+    border-radius: 1px;
+    background: var(--color-accent);
+    animation: cursor-blink 1.06s steps(1) infinite;
+  }
+  @keyframes cursor-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rotator-cursor {
+      display: none;
+    }
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(55% 60% at 85% 0%, rgb(28 148 252 / 0.22), transparent 70%),
+      radial-gradient(40% 45% at 0% 100%, rgb(60 224 252 / 0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(70% 70% at 70% 20%, #000 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(70% 70% at 70% 20%, #000 0%, transparent 75%);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Typewriter for line 2 of the headline. Phrase 1 is already in the HTML,
+  // so the page never starts from an empty line.
+  const TYPE_MS = 45;
+  const DELETE_MS = 25;
+  const HOLD_MS = 2500;
+
+  const root = document.querySelector<HTMLElement>("[data-rotator]");
+  const out = root?.querySelector<HTMLElement>("[data-rotator-text]");
+  const phrases: string[] = JSON.parse(root?.dataset.phrases ?? "[]");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (out && phrases.length > 1 && !still) {
+    let index = 0;
+    let chars = Array.from(phrases[0]);
+
+    const erase = () => {
+      chars.pop();
+      out.textContent = chars.join("");
+      if (chars.length) {
+        setTimeout(erase, DELETE_MS);
+      } else {
+        index = (index + 1) % phrases.length;
+        setTimeout(type, TYPE_MS);
+      }
+    };
+
+    const type = () => {
+      const target = Array.from(phrases[index]);
+      chars.push(target[chars.length]);
+      out.textContent = chars.join("");
+      setTimeout(chars.length < target.length ? type : erase, chars.length < target.length ? TYPE_MS : HOLD_MS);
+    };
+
+    setTimeout(erase, HOLD_MS);
+  }
+</script>
