@@ -109,7 +109,7 @@ export const about = {
   headline: "One person. Not an account manager.",
   highlight: "One person.",
   body: "I'm Dominic Goetz, founder of Drivn Media. I'm based outside St. Louis, I specialize in remodelers, and I build and run every campaign myself. You call me, you get me.",
-  /** The photo itself is src/assets/dominic-about-slight-zoom.jpg. */
+  /** The photo itself is src/assets/dominic-about.jpg. */
   photoAlt: "Dominic Goetz, founder of Drivn Media",
 };
 
